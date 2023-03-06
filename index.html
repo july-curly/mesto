@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Место</title>
+</head>
+<body class="page">
+  <div class="page__container">
+    <header class="header">
+      <img class="logo" src="images/logo.svg" alt="Лого проекта Место">
+      <div class="header__line"></div>
+    </header>
+    <section class="profile">
+      <div class="profile__information">
+        <img class="profile__avatar" src ="images/avatar.jpg" alt="аватар профиля">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__description">Исследователь океана</p>
+          <button class="profile__button_edit" type="button"></button>
+        </div>
+      </div>
+      <button class="profile__button_add" type="button"></button>
+    </section>
+    <section class="post">
+      <div class="post__item">
+        <img class="post__img" src="images/karachaevo.jpg" alt="Карачаево">
+        <div class="post__info">
+          <p class="post__description">Карачаевск</p>
+          <button class="post__like post__like_active"></button>
+        </div> 
+      </div>
+      <div class="post__item">
+        <img class="post__img" src="images/elbrus.jpg" alt="Эльбрус">
+        <div class="post__info">
+          <p class="post__description">Гора Эльбрус</p>
+          <button class="post__like"></button>
+        </div> 
+      </div>
+      <div class="post__item">
+        <img class="post__img" src="images/dombai.jpg" alt="Домбай">
+        <div class="post__info">
+          <p class="post__description">Домбай</p>
+          <button class="post__like"></button>
+        </div> 
+      </div>
+      <div class="post__item">
+        <img class="post__img" src="images/elbrus.jpg" alt="Эльбрус">
+        <div class="post__info">
+          <p class="post__description">Гора Эльбрус</p>
+          <button class="post__like"></button>
+        </div> 
+      </div>
+      <div class="post__item">
+        <img class="post__img" src="images/dombai.jpg" alt="Домбай">
+        <div class="post__info">
+          <p class="post__description">Домбай</p>
+          <button class="post__like"></button>
+        </div> 
+      </div>
+      <div class="post__item">
+        <img class="post__img" src="images/karachaevo.jpg" alt="Карачаево">
+        <div class="post__info">
+          <p class="post__description">Карачаево-Черкесия</p>
+          <button class="post__like"></button>
+        </div> 
+      </div>
+    </section>
+    <footer class="footer"> 
+      <p class="footer__name">&copy; 2023 Mesto Russia</p>
+    </footer>
+    <section class="popup">
+      <form class="popup__container" action="#">
+        <button class="popup__close" type="reset"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input class="popup__name" type="text" value="Жак-Ив Кусто" required name="username" tabindex="1">
+        <input class="popup__description" type="text" value="Исследователь океана" required name="aboutMe" tabindex="2">
+        <button class="popup__save" type="submit" tabindex="3">Сохранить</button>
+      </form>
+    </section>
+  </div>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.post__info {
+  border-radius: 0 0 10px 10px;
+  background-color: #FFFFFF;
+  max-width: 282px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

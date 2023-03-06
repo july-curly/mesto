@@ -1,0 +1,21 @@
+.post {
+  padding: 0 200px 0;
+  display: grid;
+  gap: 20px 17px;
+  font-family: 'Inter', Arial, sans-serif;
+  grid-template-columns: repeat(auto-fill, 282px);
+  margin: 0 auto;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1279px) {
+  .post{
+    padding: 0 100px 0;
+  }
+} 
+
+@media screen and (max-width: 1080px) {
+  .post{
+    padding: 0 19px 0;
+  }
+} 
