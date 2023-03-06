@@ -8,7 +8,7 @@
   border: 0;
   cursor: pointer;
   background-image: url(../../../images/editButton.svg);
-  background-repeat: no-repeat ;
+  background-repeat: no-repeat;
 }
 
 .profile__button-edit:hover {
