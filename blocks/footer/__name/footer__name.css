@@ -1,5 +1,5 @@
 .footer__name {
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -13,4 +13,4 @@
     font-size: 14px;
     line-height: 17px;
   }
-} 
+}

@@ -13,17 +13,18 @@
   .profile {
     padding: 42px 100px 36px;
   }
-} 
+}
 
 @media screen and (max-width: 750px) {
   .profile {
-    padding: 42px 19px 36px;
+    padding-left: 19px;
+    padding-right: 19px;
   }
-} 
+}
 
 @media screen and (max-width: 580px) {
   .profile {
     flex-direction: column;
     justify-content: center;
   }
-} 
+}

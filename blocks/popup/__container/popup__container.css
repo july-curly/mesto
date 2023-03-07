@@ -1,19 +1,16 @@
 .popup__container {
-  position: relative;
-  width: 430px;
-  height: 330px;
-  background-color: white;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-items: center;
-  margin: 195px 0 0 0;
+  justify-self: center;
+  align-self: center;
+  background: white;
+  border-radius: 10px;
+  width: 430px;
+  position: relative;
 }
 
 @media screen and (max-width: 580px) {
   .popup__container {
     width: 282px;
-    height: 322px;
-    margin: 123px 0 0 0;
   }
-} 
+}

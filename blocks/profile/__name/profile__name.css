@@ -6,6 +6,10 @@
   color: #FFFFFF;
   grid-area: name;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 294px;
 }
 
 @media screen and (max-width: 1035px) {
@@ -13,4 +17,4 @@
     font-size: 27px;
     line-height: 33px;
   }
-} 
+}

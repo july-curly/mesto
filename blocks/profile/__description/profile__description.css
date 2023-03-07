@@ -6,11 +6,16 @@
   color: #FFFFFF;
   grid-area: description;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 294px;
 }
 
 @media screen and (max-width: 1035px) {
-  .profile__description{
+  .profile__description {
     font-size: 14px;
     line-height: 17px;
+    text-align: center;
   }
 }

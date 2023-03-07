@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
+  <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
 <body class="page">
   <div class="page__container">
     <header class="header">
-      <img class="logo" src="images/logo.svg" alt="Лого проекта Место">
+      <img class="logo" src="./images/logo.svg" alt="Лого проекта Место">
       <div class="header__line"></div>
     </header>
     <main class="contant">
       <section class="profile">
         <div class="profile__information">
-          <img class="profile__avatar" src ="images/avatar.jpg" alt="аватар профиля">
+          <img class="profile__avatar" src ="./images/avatar.jpg" alt="аватар профиля">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__description">Исследователь океана</p>
@@ -26,45 +26,45 @@
       </section>
       <section class="post">
         <div class="post__item">
-          <img class="post__img" src="images/karachaevo.jpg" alt="Карачаево">
+          <img class="post__img" src="./images/karachaevo.jpg" alt="Карачаево">
           <div class="post__info">
-            <p class="post__description">Карачаевск</p>
-            <button class="post__like post__like_active"></button>
+            <h2 class="post__description">Карачаевск</h2>
+            <button class="post__like post__like_active" type="button"></button>
           </div>
         </div>
         <div class="post__item">
-          <img class="post__img" src="images/elbrus.jpg" alt="Эльбрус">
+          <img class="post__img" src="./images/elbrus.jpg" alt="Эльбрус">
           <div class="post__info">
-            <p class="post__description">Гора Эльбрус</p>
-            <button class="post__like"></button>
+            <h2 class="post__description">Гора Эльбрус</h2>
+            <button class="post__like" type="button"></button>
           </div>
         </div>
         <div class="post__item">
-          <img class="post__img" src="images/dombai.jpg" alt="Домбай">
+          <img class="post__img" src="./images/dombai.jpg" alt="Домбай">
           <div class="post__info">
-            <p class="post__description">Домбай</p>
-            <button class="post__like"></button>
+            <h2 class="post__description">Домбай</h2>
+            <button class="post__like" type="button"></button>
           </div>
         </div>
         <div class="post__item">
-          <img class="post__img" src="images/elbrus.jpg" alt="Эльбрус">
+          <img class="post__img" src="./images/elbrus.jpg" alt="Эльбрус">
           <div class="post__info">
-            <p class="post__description">Гора Эльбрус</p>
-            <button class="post__like"></button>
+            <h2 class="post__description">Гора Эльбрус</h2>
+            <button class="post__like" type="button"></button>
           </div>
         </div>
         <div class="post__item">
-          <img class="post__img" src="images/dombai.jpg" alt="Домбай">
+          <img class="post__img" src="./images/dombai.jpg" alt="Домбай">
           <div class="post__info">
-            <p class="post__description">Домбай</p>
-            <button class="post__like"></button>
+            <h2 class="post__description">Домбай</h2>
+            <button class="post__like" type="button"></button>
           </div>
         </div>
         <div class="post__item">
-          <img class="post__img" src="images/karachaevo.jpg" alt="Карачаево">
+          <img class="post__img" src="./images/karachaevo.jpg" alt="Карачаево">
           <div class="post__info">
-            <p class="post__description">Карачаево-Черкесия</p>
-            <button class="post__like"></button>
+            <h2 class="post__description">Карачаево-Черкесия</h2>
+            <button class="post__like" type="button"></button>
           </div>
         </div>
       </section>
@@ -72,15 +72,17 @@
     <footer class="footer">
       <p class="footer__name">&copy; 2023 Mesto Russia</p>
     </footer>
-    <section class="popup">
-      <form class="popup__container" action="#">
-        <button class="popup__close" type="reset"></button>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__name" type="text" value="Жак-Ив Кусто" required name="username" tabindex="1">
-        <input class="popup__description" type="text" value="Исследователь океана" required name="aboutMe" tabindex="2">
-        <button class="popup__save" type="submit" tabindex="3">Сохранить</button>
-      </form>
-    </section>
+        <form class="popup__form" action="#" name="form-profile">
+          <input class="popup__input popup__input_type_name" type="text" value="" required name="username" tabindex="1" placeholder="Имя">
+          <input class="popup__input popup__input_type_aboutme" type="text" value="" required name="aboutMe" tabindex="2" placeholder="О себе">
+          <button class="popup__save" type="submit" tabindex="3">Сохранить</button>
+        </form>
+      </div>
+    </div>
   </div>
   <script src="./scripts/index.js"></script>
 </body>
