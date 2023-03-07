@@ -10,6 +10,8 @@ let descriptionInput = formElement.querySelector('.popup__input_type_aboutme');
 
 const addPopup = function addPopup() {
   popupElement.classList.add('popup_opened');
+  nameInput.value = nameProfile.textContent;
+  descriptionInput.value = descriptionProfile.textContent;
 }
 
 const closePopup = function closePopup() {
