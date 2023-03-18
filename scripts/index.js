@@ -96,10 +96,10 @@ const closePopupAdd = () => {
 }
 
 function openImage (evt) {
+  
   //popupTitleElement.textContent = evt.target.querySelector('.post__description');
   popupImageElement.scr = evt.target.src;
   console.log(popupImageElement.scr);
-  //popupImageElement.alt = popupTitleElement.textContent;
   popupGallery.classList.add('popup_opened');
 }
 
