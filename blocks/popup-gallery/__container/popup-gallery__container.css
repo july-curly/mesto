@@ -1,0 +1,7 @@
+.popup-gallery__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0 auto;
+}

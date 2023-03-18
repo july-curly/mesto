@@ -24,64 +24,54 @@
         <button class="profile__button-add" type="button"></button>
       </section>
       <section class="post">
-        <div class="post__item">
-          <img class="post__img" src="./images/karachaevo.jpg" alt="Карачаево">
-          <div class="post__info">
-            <h2 class="post__description">Карачаевск</h2>
-            <button class="post__like post__like_active" type="button"></button>
-          </div>
-        </div>
-        <div class="post__item">
-          <img class="post__img" src="./images/elbrus.jpg" alt="Эльбрус">
-          <div class="post__info">
-            <h2 class="post__description">Гора Эльбрус</h2>
-            <button class="post__like" type="button"></button>
-          </div>
-        </div>
-        <div class="post__item">
-          <img class="post__img" src="./images/dombai.jpg" alt="Домбай">
-          <div class="post__info">
-            <h2 class="post__description">Домбай</h2>
-            <button class="post__like" type="button"></button>
-          </div>
-        </div>
-        <div class="post__item">
-          <img class="post__img" src="./images/elbrus.jpg" alt="Эльбрус">
-          <div class="post__info">
-            <h2 class="post__description">Гора Эльбрус</h2>
-            <button class="post__like" type="button"></button>
-          </div>
-        </div>
-        <div class="post__item">
-          <img class="post__img" src="./images/dombai.jpg" alt="Домбай">
-          <div class="post__info">
-            <h2 class="post__description">Домбай</h2>
-            <button class="post__like" type="button"></button>
-          </div>
-        </div>
-        <div class="post__item">
-          <img class="post__img" src="./images/karachaevo.jpg" alt="Карачаево">
-          <div class="post__info">
-            <h2 class="post__description">Карачаево-Черкесия</h2>
-            <button class="post__like" type="button"></button>
-          </div>
-        </div>
+
       </section>
     </main>
     <footer class="footer">
       <p class="footer__name">&copy; 2023 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup-profile">
       <div class="popup__container">
-        <button class="popup__close" type="button"></button>
+        <button class="popup__close popup__close_edit" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" action="#" name="form-profile">
+        <form class="popup__form form-profile" action="#" name="form-profile">
           <input class="popup__input popup__input_type_name" type="text" value="" required name="username" tabindex="1" placeholder="Имя">
           <input class="popup__input popup__input_type_aboutme" type="text" value="" required name="aboutMe" tabindex="2" placeholder="О себе">
           <button class="popup__save" type="submit" tabindex="3">Сохранить</button>
         </form>
       </div>
     </div>
+    <div class="popup popup-post">
+      <div class="popup__container">
+        <button class="popup__close popup__close_add" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form form-post" action="#" name="form-post">
+          <input class="popup__input popup__input_type_title" type="text" value="" required name="title" tabindex="1" placeholder="Название">
+          <input class="popup__input popup__input_type_img" type="url" value="" required name="img" tabindex="2" placeholder="Ссылка на картинку">
+          <button class="popup__save" type="submit" tabindex="3">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup-gallery">
+      <div class="popup-gallery__container">
+      <button class="popup__close popup__close_gallery" type="button"></button>
+      <figure class="popup-gallery__figure">
+        <img class="popup-gallery__img">
+        <figcaption class="popup-gallery__title"></figcaption>
+      </figure>
+      </div>
+    </div>
+    </div>
+    <template class="post-template">
+      <div class="post__item">
+        <button class="post__del" type="button"></button>
+        <img class="post__img">
+        <div class="post__info">
+          <h2 class="post__description"></h2>
+          <button class="post__like" type="button"></button>
+        </div>
+      </div>
+    </template>
   </div>
   <script src="./scripts/index.js"></script>
 </body>
