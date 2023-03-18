@@ -1,4 +1,11 @@
 .popup-gallery__img {
- max-width: 75vh;
- max-height: 75vh;
+  max-width: 75vh;
+  max-height: 75vh;
+}
+
+@media screen and (max-width: 580px) {
+  .popup-gallery__img {
+  width: 100%;
+  object-fit: contain;
+  }
 }

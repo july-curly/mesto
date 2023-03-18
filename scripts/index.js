@@ -20,7 +20,7 @@ const postTemplate = document.querySelector('.post-template').content;
 const popupGallery = document.querySelector('.popup-gallery');
 const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
-console.log(popupGallery);
+const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
 
 const initialCards = [
   {
@@ -95,11 +95,14 @@ const closePopupAdd = () => {
   popupAddElement.classList.remove('popup_opened');
 }
 
+const closePopupGallery = () => {
+  popupGallery.classList.remove('popup_opened');
+}
+
 function openImage (evt) {
-  
-  //popupTitleElement.textContent = evt.target.querySelector('.post__description');
-  popupImageElement.scr = evt.target.src;
-  console.log(popupImageElement.scr);
+  image = evt.target.closest('.post__item');
+	popupTitleElement.textContent = image.querySelector('.post__description').textContent;
+  popupImageElement.src = image.querySelector('.post__img').src;
   popupGallery.classList.add('popup_opened');
 }
 
@@ -135,4 +138,4 @@ popupAddButtonElement.addEventListener("click", addPopupAdd);
 popupAddCloseButtonElement.addEventListener("click", closePopupAdd);
 postFormElement.addEventListener('submit', handlePostSubmit);
 
-
+popupGalleryCloseButtonElement.addEventListener("click", closePopupGallery);

@@ -1,8 +1,14 @@
 .popup-gallery__container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  margin: 0 auto;
+  flex-direction: column;
+  justify-self: center;
+  align-self: center;
+  max-width: 75vh;
+}
+
+@media screen and (max-width: 580px) {
+  .popup-gallery__container {
+  width: calc(100% - 40px * 2);
+  }
 }
