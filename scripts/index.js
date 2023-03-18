@@ -103,6 +103,7 @@ function openImage (evt) {
   image = evt.target.closest('.post__item');
 	popupTitleElement.textContent = image.querySelector('.post__description').textContent;
   popupImageElement.src = image.querySelector('.post__img').src;
+  popupImageElement.alt = image.querySelector('.post__img').alt;
   popupGallery.classList.add('popup_opened');
 }
 
