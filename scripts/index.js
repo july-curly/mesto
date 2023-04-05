@@ -21,7 +21,7 @@ const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
 const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
 const closeButtons = document.querySelectorAll('.popup__close');
-
+const popupOpened = document.querySelector('.popup_opened')
 
 
 const initialCards = [
@@ -85,14 +85,16 @@ const addPopupEdit = () => {
   descriptionInput.value = descriptionProfile.textContent;
 }
 
+const closePopupKey = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  }
+}
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 
-  document.addEventListener('keydown', (evt) => {
-    if(evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
+  document.addEventListener('keydown', closePopupKey);
 
   popup.addEventListener('click', (evt) => {
     const target = evt.target;
@@ -104,11 +106,7 @@ const openPopup = (popup) => {
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keypress', (evt) => {
-    if( evt.key === 'Escape' ) {
-      closePopup(popup);
-    }
-  });
+  document.removeEventListener('keypress', closePopupKey);
 }
 
 closeButtons.forEach((button) => {
