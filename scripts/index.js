@@ -20,6 +20,9 @@ const popupGallery = document.querySelector('.popup-gallery');
 const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
 const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
+const closeButtons = document.querySelectorAll('.popup__close');
+
+
 
 const initialCards = [
   {
@@ -84,13 +87,29 @@ const addPopupEdit = () => {
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+
+  document.addEventListener('keydown', (evt) => {
+    if(evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  });
+
+  popup.addEventListener('click', (evt) => {
+    const target = evt.target;
+    if (! target.closest('.popup__container')) {
+    closePopup(popup);
+    }
+  });
 }
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keypress', (evt) => {
+    if( evt.key === 'Escape' ) {
+      closePopup(popup);
+    }
+  });
 }
-
-const closeButtons = document.querySelectorAll('.popup__close');
 
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
@@ -134,3 +153,4 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 popupAddButtonElement.addEventListener("click", addPopupAdd);
 postFormElement.addEventListener('submit', handlePostSubmit);
+
