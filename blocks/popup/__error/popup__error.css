@@ -1,0 +1,27 @@
+.popup__error {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  padding-right: 36px;
+  padding-left: 36px;
+  margin: 0;
+  padding-top: 5px;
+}
+
+.popup__error:last-of-type {
+  padding-bottom: 28px;
+}
+
+@media screen and (max-width: 580px) {
+  .popup__error {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
+
+  .popup__error:last-of-type {
+    padding-bottom: 25px;
+  }
+}

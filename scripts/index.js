@@ -21,7 +21,9 @@ const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
 const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
 const closeButtons = document.querySelectorAll('.popup__close');
-
+const inputsProfile = profileFormElement.querySelectorAll('.popup__input');
+const inputsPost = postFormElement.querySelectorAll('.popup__input');
+const popupSaveButtonPostElement = postFormElement.querySelector('.popup__save')
 
 
 const initialCards = [
@@ -50,41 +52,60 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+// Создание карточки и установка слушателя на каждую карточку
 function createCard(item) {
   const postElement = postTemplate.cloneNode(true);
   postElement.querySelector('.post__img').src = item.link;
   postElement.querySelector('.post__img').alt = item.name;
   postElement.querySelector('.post__description').textContent = item.name;
   setEventListeners(postElement);
-return postElement
+  return postElement
 }
 
+// Добавить карточки из массива
 initialCards.forEach((item) => {
   postList.append(createCard(item));
 });
 
+// сабмит по enter
+const submitFormEnter = (form) => {
+  document.addEventListener('keypress', (evt) => {
+    if( evt.key === 'Enter' ) {
+      form.submit();
+    }
+  });
+}
+
+// Добавить карточки через модальное окно
 function handlePostSubmit (evt) {
   evt.preventDefault();
   const cards = [];
 	cards.link = imgInput.value;
   cards.name= titleInput.value;
 	postList.prepend(createCard(cards));
+  submitFormEnter(popupAddElement);
   closePopup(popupAddElement);
   imgInput.value = '';
   titleInput.value = '';
 }
 
+// открыть попап добавления карточки
 const addPopupAdd = () => {
+  toggleButtonState(inputsPost, popupSaveButtonPostElement, validationConfig.inactiveButtonClass);
+  resetValidation(postFormElement);
   openPopup(popupAddElement);
 }
 
+// открыть попап ред. профиля
 const addPopupEdit = () => {
-  openPopup(popupEditElement);
+  resetValidation(profileFormElement);
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
+  toggleButtonState(inputsProfile, popupSaveButtonElement, validationConfig.inactiveButtonClass);
+  openPopup(popupEditElement);
 }
 
+// функция открытия попапа
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 
@@ -102,6 +123,7 @@ const openPopup = (popup) => {
   });
 }
 
+// функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keypress', (evt) => {
@@ -111,11 +133,13 @@ const closePopup = (popup) => {
   });
 }
 
+// закрытие попапа кнопкой крестик на всех попапах
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
 
+// открытие попапа с картинкой
 function openImage (evt) {
   image = evt.target.closest('.post__item');
 	popupTitleElement.textContent = image.querySelector('.post__description').textContent;
@@ -124,6 +148,7 @@ function openImage (evt) {
   openPopup(popupGallery);
 }
 
+// функция редоктирования профиля
 function handleFormSubmit (evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
@@ -131,15 +156,18 @@ function handleFormSubmit (evt) {
   closePopup(popupEditElement);
 }
 
+// функция установки лайка на карточки
 function handleLike (evt) {
   evt.target.classList.toggle('post__like_active');
 }
 
+// функция удаления карточки
 function handleDelete (evt) {
   const card = evt.target.closest('.post__item');
 	card.remove();
 }
 
+// Слушатель (удаоение, лайк, открыть картинку)событий для карточек
 function setEventListeners (htmlElement) {
   htmlElement.querySelector('.post__del').addEventListener('click', handleDelete);
 
@@ -148,9 +176,15 @@ function setEventListeners (htmlElement) {
   htmlElement.querySelector('.post__img').addEventListener("click", openImage);
 }
 
+// слушатель событий открытия попапа ред. профиля
 popupEditButtonElement.addEventListener("click", addPopupEdit);
+
+// слушатель событий сабмит попапа ред. профиля
 formElement.addEventListener('submit', handleFormSubmit);
 
+// слушатель событий открытия попапа добавления карточки
 popupAddButtonElement.addEventListener("click", addPopupAdd);
+
+// слушатель событий сабмит попапа добавления карточки
 postFormElement.addEventListener('submit', handlePostSubmit);
 
