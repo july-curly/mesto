@@ -34,28 +34,11 @@
         <button class="popup__close popup__close_edit" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form form-profile" action="#" name="form-profile" novalidate>
-          <input
-          id="profile-name"
-          class="popup__input popup__input_type_name"
-          type="text" value=""
-          required
-          name="username"
-          tabindex="1"
-          placeholder="Имя"
-          minlength="2"
-          maxlength="40">
+          <input id="profile-name" class="popup__input popup__input_type_name" type="text" value="" required name="name" tabindex="1" placeholder="Имя"
+          minlength="2" maxlength="40">
           <span id="profile-name-error" class="popup__error popup__error_type_name"></span>
-          <input
-          id="profile-aboutme"
-          class="popup__input popup__input_type_aboutme"
-          type="text"
-          value=""
-          required
-          name="aboutMe"
-          tabindex="2"
-          placeholder="О себе"
-          minlength="2"
-          maxlength="200">
+          <input id="profile-aboutme" class="popup__input popup__input_type_aboutme" type="text" value="" required name="aboutme" tabindex="2" placeholder="О себе"
+          minlength="2" maxlength="200">
           <span class="popup__error popup__error_type_aboutme"  id="profile-aboutme-error"></span>
           <button class="popup__save" type="submit" tabindex="3">Сохранить</button>
         </form>
@@ -66,26 +49,10 @@
         <button class="popup__close popup__close_add" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form form-post" action="#" name="form-post" novalidate>
-          <input
-          id="post-title"
-          class="popup__input popup__input_type_title"
-          type="text" value=""
-          required
-          name="title"
-          tabindex="1"
-          placeholder="Название"
-          minlength="2"
-          maxlength="30">
+          <input id="post-title" class="popup__input popup__input_type_title" type="text" value="" required name="title" tabindex="1" placeholder="Название"
+          minlength="2" maxlength="30">
           <span class="popup__error popup__error_type_title"  id="post-title-error"></span>
-          <input
-          id="post-img"
-          class="popup__input popup__input_type_img"
-          type="url"
-          value=""
-          required
-          name="img"
-          tabindex="2"
-          placeholder="Ссылка на картинку">
+          <input id="post-img" class="popup__input popup__input_type_img" type="url" value="" required name="img" tabindex="2" placeholder="Ссылка на картинку">
           <span class="popup__error popup__error_type_img"  id="post-img-error"></span>
           <button class="popup__save" type="submit" tabindex="3">Создать</button>
         </form>
