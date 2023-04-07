@@ -21,7 +21,9 @@ const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
 const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
 const closeButtons = document.querySelectorAll('.popup__close');
-
+const inputsProfile = profileFormElement.querySelectorAll('.popup__input');
+const inputsPost = postFormElement.querySelectorAll('.popup__input');
+const popupSaveButtonPostElement = postFormElement.querySelector('.popup__save')
 
 
 const initialCards = [
@@ -65,6 +67,15 @@ initialCards.forEach((item) => {
   postList.append(createCard(item));
 });
 
+// сабмит по enter
+const submitFormEnter = (form) => {
+  document.addEventListener('keypress', (evt) => {
+    if( evt.key === 'Enter' ) {
+      form.submit();
+    }
+  });
+}
+
 // Добавить карточки через модальное окно
 function handlePostSubmit (evt) {
   evt.preventDefault();
@@ -72,6 +83,7 @@ function handlePostSubmit (evt) {
 	cards.link = imgInput.value;
   cards.name= titleInput.value;
 	postList.prepend(createCard(cards));
+  submitFormEnter(popupAddElement);
   closePopup(popupAddElement);
   imgInput.value = '';
   titleInput.value = '';
@@ -79,16 +91,17 @@ function handlePostSubmit (evt) {
 
 // открыть попап добавления карточки
 const addPopupAdd = () => {
+  toggleButtonState(inputsPost, popupSaveButtonPostElement, validationConfig.inactiveButtonClass);
   resetValidation(postFormElement);
   openPopup(popupAddElement);
 }
 
 // открыть попап ред. профиля
 const addPopupEdit = () => {
-
   resetValidation(profileFormElement);
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
+  toggleButtonState(inputsProfile, popupSaveButtonElement, validationConfig.inactiveButtonClass);
   openPopup(popupEditElement);
 }
 
