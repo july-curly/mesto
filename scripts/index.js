@@ -25,38 +25,12 @@ const inputsProfile = profileFormElement.querySelectorAll('.popup__input');
 const inputsPost = postFormElement.querySelectorAll('.popup__input');
 const popupSaveButtonPostElement = postFormElement.querySelector('.popup__save')
 
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 // Создание карточки и установка слушателя на каждую карточку
 function createCard(item) {
   const postElement = postTemplate.cloneNode(true);
-  postElement.querySelector('.post__img').src = item.link;
-  postElement.querySelector('.post__img').alt = item.name;
+  const postImgElement = postElement.querySelector('.post__img');
+  postImgElement.src = item.link;
+  postImgElement.alt = item.name;
   postElement.querySelector('.post__description').textContent = item.name;
   setEventListeners(postElement);
   return postElement
@@ -85,19 +59,20 @@ function handlePostSubmit (evt) {
 	postList.prepend(createCard(cards));
   submitFormEnter(popupAddElement);
   closePopup(popupAddElement);
-  imgInput.value = '';
-  titleInput.value = '';
+  postFormElement.reset();
+  //imgInput.value = '';
+  //titleInput.value = '';
 }
 
 // открыть попап добавления карточки
-const addPopupAdd = () => {
+const openAddCardForm = () => {
   toggleButtonState(inputsPost, popupSaveButtonPostElement, validationConfig.inactiveButtonClass);
   resetValidation(postFormElement);
   openPopup(popupAddElement);
 }
 
 // открыть попап ред. профиля
-const addPopupEdit = () => {
+const openEditProfileForm = () => {
   resetValidation(profileFormElement);
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
@@ -105,32 +80,35 @@ const addPopupEdit = () => {
   openPopup(popupEditElement);
 }
 
+const closePopupEsc = (evt) => {
+  if(evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
+const closePopupOverlay = (evt) => {
+  const target = evt.target;
+  if (! target.closest('.popup__container')) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
 // функция открытия попапа
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 
-  document.addEventListener('keydown', (evt) => {
-    if(evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
+  document.addEventListener('keydown', closePopupEsc);
 
-  popup.addEventListener('click', (evt) => {
-    const target = evt.target;
-    if (! target.closest('.popup__container')) {
-    closePopup(popup);
-    }
-  });
+  popup.addEventListener('click', closePopupOverlay);
 }
 
 // функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keypress', (evt) => {
-    if( evt.key === 'Escape' ) {
-      closePopup(popup);
-    }
-  });
+  document.removeEventListener('keydown', closePopupEsc);
+  popup.removeEventListener('click', closePopupOverlay);
 }
 
 // закрытие попапа кнопкой крестик на всех попапах
@@ -141,15 +119,16 @@ closeButtons.forEach((button) => {
 
 // открытие попапа с картинкой
 function openImage (evt) {
-  image = evt.target.closest('.post__item');
+  const image = evt.target.closest('.post__item');
+  const imagePostElement = image.querySelector('.post__img');
 	popupTitleElement.textContent = image.querySelector('.post__description').textContent;
-  popupImageElement.src = image.querySelector('.post__img').src;
-  popupImageElement.alt = image.querySelector('.post__img').alt;
+  popupImageElement.src = imagePostElement.src;
+  popupImageElement.alt = imagePostElement.alt;
   openPopup(popupGallery);
 }
 
 // функция редоктирования профиля
-function handleFormSubmit (evt) {
+function submitEditProfileForm (evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   descriptionProfile.textContent = descriptionInput.value;
@@ -167,7 +146,7 @@ function handleDelete (evt) {
 	card.remove();
 }
 
-// Слушатель (удаоение, лайк, открыть картинку)событий для карточек
+// Слушатель (удаление, лайк, открыть картинку)событий для карточек
 function setEventListeners (htmlElement) {
   htmlElement.querySelector('.post__del').addEventListener('click', handleDelete);
 
@@ -177,13 +156,13 @@ function setEventListeners (htmlElement) {
 }
 
 // слушатель событий открытия попапа ред. профиля
-popupEditButtonElement.addEventListener("click", addPopupEdit);
+popupEditButtonElement.addEventListener("click", openEditProfileForm);
 
 // слушатель событий сабмит попапа ред. профиля
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', submitEditProfileForm);
 
 // слушатель событий открытия попапа добавления карточки
-popupAddButtonElement.addEventListener("click", addPopupAdd);
+popupAddButtonElement.addEventListener("click", openAddCardForm);
 
 // слушатель событий сабмит попапа добавления карточки
 postFormElement.addEventListener('submit', handlePostSubmit);
