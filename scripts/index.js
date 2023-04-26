@@ -2,10 +2,10 @@ import initialCards from "./constants.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
-const popupEditElement = document.querySelector('.popup-profile');
-const popupAddElement = document.querySelector('.popup-post');
-const popupEditButtonElement = document.querySelector('.profile__button-edit');
-const popupAddButtonElement = document.querySelector('.profile__button-add');
+const popupProfileElement = document.querySelector('.popup-profile');
+const popupPostElement = document.querySelector('.popup-post');
+const profileOpenButton = document.querySelector('.profile__button-edit');
+const postOpenButton = document.querySelector('.profile__button-add');
 const nameProfile = document.querySelector('.profile__name');
 const descriptionProfile = document.querySelector('.profile__description');
 const formElement = document.querySelector('.popup__form');
@@ -52,17 +52,8 @@ profileFormValidation.enableValidation();
 const postFormValidation = new FormValidator(validationConfig, postFormElement);
 postFormValidation.enableValidation();
 
-// сабмит по enter
-const submitFormEnter = (form) => {
-  document.addEventListener('keypress', (evt) => {
-    if( evt.key === 'Enter' ) {
-      form.submit();
-    }
-  });
-}
-
 // Добавить карточки через модальное окно
-function handlePostSubmit (evt) {
+function submitPostForm (evt) {
   evt.preventDefault();
   const cardPopupData = {
     link: imgInput.value,
@@ -70,29 +61,28 @@ function handlePostSubmit (evt) {
   }
   const card = new Card(cardPopupData, templateSelector, openImage)
   postList.prepend(card.createCard(cardPopupData));
-  submitFormEnter(popupAddElement);
-  closePopup(popupAddElement);
+  closePopup(popupPostElement);
   postFormElement.reset();
 }
 
 // открыть попап добавления карточки
-const openAddCardForm = () => {
-  postFormValidation.reset();
+const openPostForm = () => {
+  postFormElement.reset();
   postFormValidation.resetValidation();
-  openPopup(popupAddElement);
+  openPopup(popupPostElement);
 }
 
 // открыть попап ред. профиля
-const openEditProfileForm = () => {
+const openProfileForm = () => {
   profileFormValidation.resetValidation();
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
-  openPopup(popupEditElement);
+  openPopup(popupProfileElement);
 }
 
 // функция закрытия попапа по Esc
 const closePopupEsc = (evt) => {
-  if(evt.key === 'Escape') {
+  if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
@@ -101,7 +91,7 @@ const closePopupEsc = (evt) => {
 // функция закрытия попапа по Overlay
 const closePopupOverlay = (evt) => {
   const target = evt.target;
-  if (! target.closest('.popup__container')) {
+  if (!target.closest('.popup__container') && !target.closest('.popup-gallery__container')) {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
@@ -128,21 +118,21 @@ closeButtons.forEach((button) => {
 });
 
 // функция редоктирования профиля
-function submitEditProfileForm (evt) {
+function submitProfileForm (evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   descriptionProfile.textContent = descriptionInput.value;
-  closePopup(popupEditElement);
+  closePopup(popupPostElement);
 }
 
 // слушатель событий открытия попапа ред. профиля
-popupEditButtonElement.addEventListener("click", openEditProfileForm);
+profileOpenButton.addEventListener("click", openProfileForm);
 
 // слушатель событий сабмит попапа ред. профиля
-formElement.addEventListener('submit', submitEditProfileForm);
+formElement.addEventListener('submit', submitProfileForm);
 
 // слушатель событий открытия попапа добавления карточки
-popupAddButtonElement.addEventListener("click", openAddCardForm);
+postOpenButton.addEventListener("click", openPostForm);
 
 // слушатель событий сабмит попапа добавления карточки
-postFormElement.addEventListener('submit', handlePostSubmit);
+postFormElement.addEventListener('submit', submitPostForm);

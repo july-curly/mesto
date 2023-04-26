@@ -38,14 +38,22 @@ export default class FormValidator {
     }
   )};
 
+  _disableButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.setAttribute("disabled", true);
+  }
+
+  _enableButton() {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.removeAttribute("disabled", true);
+  }
+
   _toggleButtonState() {
     if(this._hasInvalidInput()) {
-      this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.setAttribute("disabled", true);
+      this._disableButton()
     }
     else {
-      this._buttonElement.classList.remove(this._inactiveButtonClass);
-      this._buttonElement.removeAttribute("disabled", true);
+      this._enableButton()
     }
   }
 
@@ -69,7 +77,6 @@ export default class FormValidator {
         this._hideInputError(input, currentInputError);
       }
     })
-    this._buttonElement.classList.add(this._inactiveButtonClass);
-    this._buttonElement.setAttribute("disabled", true);
+    this._disableButton()
   }
 }
