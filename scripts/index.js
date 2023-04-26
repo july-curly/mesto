@@ -1,5 +1,5 @@
 import initialCards from "./constants.js";
-import Card from "./Card.js";
+import Card from "./Сard.js"
 import FormValidator from "./FormValidator.js";
 
 const popupProfileElement = document.querySelector('.popup-profile');
