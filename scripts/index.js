@@ -126,13 +126,13 @@ function submitProfileForm (evt) {
 }
 
 // слушатель событий открытия попапа ред. профиля
-profileOpenButton.addEventListener("click", openProfileForm);
+profileOpenButton.addEventListener('click', openProfileForm);
 
 // слушатель событий сабмит попапа ред. профиля
 formElement.addEventListener('submit', submitProfileForm);
 
 // слушатель событий открытия попапа добавления карточки
-postOpenButton.addEventListener("click", openPostForm);
+postOpenButton.addEventListener('click', openPostForm);
 
 // слушатель событий сабмит попапа добавления карточки
 postFormElement.addEventListener('submit', submitPostForm);
