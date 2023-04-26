@@ -48,7 +48,7 @@ initialCards.forEach((item) => {
 const profileFormValidation = new FormValidator(validationConfig, profileFormElement);
 profileFormValidation.enableValidation();
 
-//// экземпляр класса FormValidator для попапа карточки
+// экземпляр класса FormValidator для попапа карточки
 const postFormValidation = new FormValidator(validationConfig, postFormElement);
 postFormValidation.enableValidation();
 
