@@ -1,7 +1,10 @@
+import initialCards from "./constants.js";
+import Card from "./card.js";
+
 const popupEditElement = document.querySelector('.popup-profile');
 const popupAddElement = document.querySelector('.popup-post');
-const popupEditCloseButtonElement = popupEditElement.querySelector('.popup__close_edit');
-const popupAddCloseButtonElement = popupAddElement.querySelector('.popup__close_add');
+//const popupEditCloseButtonElement = popupEditElement.querySelector('.popup__close_edit');
+//const popupAddCloseButtonElement = popupAddElement.querySelector('.popup__close_add');
 const popupEditButtonElement = document.querySelector('.profile__button-edit');
 const popupSaveButtonElement = document.querySelector('.popup__save');
 const popupAddButtonElement = document.querySelector('.profile__button-add');
@@ -15,31 +18,61 @@ const descriptionInput = formElement.querySelector('.popup__input_type_aboutme')
 const titleInput = postFormElement.querySelector('.popup__input_type_title');
 const imgInput = postFormElement.querySelector('.popup__input_type_img');
 const postList =  document.querySelector('.post');
-const postTemplate = document.querySelector('.post-template').content;
+const templateSelector = document.querySelector('.post-template').content;
 const popupGallery = document.querySelector('.popup-gallery');
 const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
-const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
+//const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
 const closeButtons = document.querySelectorAll('.popup__close');
 const inputsProfile = profileFormElement.querySelectorAll('.popup__input');
 const inputsPost = postFormElement.querySelectorAll('.popup__input');
 const popupSaveButtonPostElement = postFormElement.querySelector('.popup__save')
 
+const validationConfig = {
+  formSelector: document.querySelectorAll('.popup__form'),
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__error'
+}
+
+// открытие попапа с картинкой
+function openImage (cardData) {
+	popupTitleElement.textContent = cardData.name;
+  popupImageElement.src = cardData.link;
+  popupImageElement.alt = cardData.name;
+  openPopup(popupGallery);
+}
+
 // Создание карточки и установка слушателя на каждую карточку
-function createCard(item) {
-  const postElement = postTemplate.cloneNode(true);
-  const postImgElement = postElement.querySelector('.post__img');
-  postImgElement.src = item.link;
-  postImgElement.alt = item.name;
-  postElement.querySelector('.post__description').textContent = item.name;
-  setEventListeners(postElement);
-  return postElement
+// function createCard(item) {
+//   const postElement = postTemplate.cloneNode(true);
+//   const postImgElement = postElement.querySelector('.post__img');
+//   postImgElement.src = item.link;
+//   postImgElement.alt = item.name;
+//   postElement.querySelector('.post__description').textContent = item.name;
+//   setEventListeners(postElement);
+//   return postElement
+// }
+
+function createNewCard(element) {
+  const card = new Card(element, templateSelector, openImage);
+  const cardElement = card.createCard();
+  return cardElement
 }
 
 // Добавить карточки из массива
 initialCards.forEach((item) => {
-  postList.append(createCard(item));
-});
+ // const card = new Card(item, templateSelector, openImage)
+  postList.append(createNewCard(item));
+ });
+
+ class FormValidator {
+  constructor(){
+    
+  }
+ }
 
 // сабмит по enter
 const submitFormEnter = (form) => {
@@ -53,21 +86,20 @@ const submitFormEnter = (form) => {
 // Добавить карточки через модальное окно
 function handlePostSubmit (evt) {
   evt.preventDefault();
-  const cards = [];
-	cards.link = imgInput.value;
-  cards.name= titleInput.value;
-	postList.prepend(createCard(cards));
+  const cardPopupData = {
+    link: imgInput.value,
+    name: titleInput.value
+  }
+	postList.prepend(createNewCard(cardPopupData));
   submitFormEnter(popupAddElement);
   closePopup(popupAddElement);
   postFormElement.reset();
-  //imgInput.value = '';
-  //titleInput.value = '';
 }
 
 // открыть попап добавления карточки
 const openAddCardForm = () => {
-  toggleButtonState(inputsPost, popupSaveButtonPostElement, validationConfig.inactiveButtonClass);
-  resetValidation(postFormElement);
+ // toggleButtonState(inputsPost, popupSaveButtonPostElement, validationConfig.inactiveButtonClass);
+ // resetValidation(postFormElement);
   openPopup(popupAddElement);
 }
 
@@ -115,42 +147,12 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-// открытие попапа с картинкой
-function openImage (evt) {
-  const image = evt.target.closest('.post__item');
-  const imagePostElement = image.querySelector('.post__img');
-	popupTitleElement.textContent = image.querySelector('.post__description').textContent;
-  popupImageElement.src = imagePostElement.src;
-  popupImageElement.alt = imagePostElement.alt;
-  openPopup(popupGallery);
-}
-
 // функция редоктирования профиля
 function submitEditProfileForm (evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   descriptionProfile.textContent = descriptionInput.value;
   closePopup(popupEditElement);
-}
-
-// функция установки лайка на карточки
-function handleLike (evt) {
-  evt.target.classList.toggle('post__like_active');
-}
-
-// функция удаления карточки
-function handleDelete (evt) {
-  const card = evt.target.closest('.post__item');
-	card.remove();
-}
-
-// Слушатель (удаление, лайк, открыть картинку)событий для карточек
-function setEventListeners (htmlElement) {
-  htmlElement.querySelector('.post__del').addEventListener('click', handleDelete);
-
-	htmlElement.querySelector('.post__like').addEventListener('click', handleLike);
-
-  htmlElement.querySelector('.post__img').addEventListener("click", openImage);
 }
 
 // слушатель событий открытия попапа ред. профиля

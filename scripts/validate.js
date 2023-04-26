@@ -1,11 +1,4 @@
-const validationConfig = {
-  formSelector: document.querySelectorAll('.popup__form'),
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__error'
-}
+
 
 // получаем массив форм, находим в них инпуты и кнопки, вешаем слушателя
 const enableValidation = (config) => {
@@ -80,5 +73,5 @@ const resetValidation = (form) => {
   })
 }
 
-enableValidation(validationConfig);
+//enableValidation(validationConfig);
 
