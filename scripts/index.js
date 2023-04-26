@@ -4,10 +4,7 @@ import FormValidator from "./FormValidator.js";
 
 const popupEditElement = document.querySelector('.popup-profile');
 const popupAddElement = document.querySelector('.popup-post');
-//const popupEditCloseButtonElement = popupEditElement.querySelector('.popup__close_edit');
-//const popupAddCloseButtonElement = popupAddElement.querySelector('.popup__close_add');
 const popupEditButtonElement = document.querySelector('.profile__button-edit');
-const popupSaveButtonElement = document.querySelector('.popup__save');
 const popupAddButtonElement = document.querySelector('.profile__button-add');
 const nameProfile = document.querySelector('.profile__name');
 const descriptionProfile = document.querySelector('.profile__description');
@@ -23,14 +20,9 @@ const templateSelector = document.querySelector('.post-template').content;
 const popupGallery = document.querySelector('.popup-gallery');
 const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
 const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
-//const popupGalleryCloseButtonElement = popupGallery.querySelector('.popup__close_gallery');
 const closeButtons = document.querySelectorAll('.popup__close');
-const inputsProfile = profileFormElement.querySelectorAll('.popup__input');
-const inputsPost = postFormElement.querySelectorAll('.popup__input');
-const popupSaveButtonPostElement = postFormElement.querySelector('.popup__save')
 
 const validationConfig = {
-  //formSelector: document.querySelectorAll('.popup__form'),
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
   inactiveButtonClass: 'popup__save_disabled',
@@ -46,32 +38,19 @@ function openImage (cardData) {
   openPopup(popupGallery);
 }
 
-// Создание карточки и установка слушателя на каждую карточку
-// function createCard(item) {
-//   const postElement = postTemplate.cloneNode(true);
-//   const postImgElement = postElement.querySelector('.post__img');
-//   postImgElement.src = item.link;
-//   postImgElement.alt = item.name;
-//   postElement.querySelector('.post__description').textContent = item.name;
-//   setEventListeners(postElement);
-//   return postElement
-// }
-
 // Добавить карточки из массива
 initialCards.forEach((item) => {
   const card = new Card(item, templateSelector, openImage)
   postList.append(card.createCard(item));
  });
 
-
-
+// экземпляр класса FormValidator для попапа профиля
 const profileFormValidation = new FormValidator(validationConfig, profileFormElement);
 profileFormValidation.enableValidation();
 
+//// экземпляр класса FormValidator для попапа карточки
 const postFormValidation = new FormValidator(validationConfig, postFormElement);
 postFormValidation.enableValidation();
-
-
 
 // сабмит по enter
 const submitFormEnter = (form) => {
@@ -98,6 +77,7 @@ function handlePostSubmit (evt) {
 
 // открыть попап добавления карточки
 const openAddCardForm = () => {
+  postFormValidation.reset();
   postFormValidation.resetValidation();
   openPopup(popupAddElement);
 }
@@ -110,6 +90,7 @@ const openEditProfileForm = () => {
   openPopup(popupEditElement);
 }
 
+// функция закрытия попапа по Esc
 const closePopupEsc = (evt) => {
   if(evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
@@ -117,6 +98,7 @@ const closePopupEsc = (evt) => {
   }
 }
 
+// функция закрытия попапа по Overlay
 const closePopupOverlay = (evt) => {
   const target = evt.target;
   if (! target.closest('.popup__container')) {
