@@ -1,5 +1,6 @@
 import initialCards from "./constants.js";
-import Card from "./card.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 const popupEditElement = document.querySelector('.popup-profile');
 const popupAddElement = document.querySelector('.popup-post');
@@ -29,7 +30,7 @@ const inputsPost = postFormElement.querySelectorAll('.popup__input');
 const popupSaveButtonPostElement = postFormElement.querySelector('.popup__save')
 
 const validationConfig = {
-  formSelector: document.querySelectorAll('.popup__form'),
+  //formSelector: document.querySelectorAll('.popup__form'),
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
   inactiveButtonClass: 'popup__save_disabled',
@@ -56,23 +57,21 @@ function openImage (cardData) {
 //   return postElement
 // }
 
-function createNewCard(element) {
-  const card = new Card(element, templateSelector, openImage);
-  const cardElement = card.createCard();
-  return cardElement
-}
-
 // Добавить карточки из массива
 initialCards.forEach((item) => {
- // const card = new Card(item, templateSelector, openImage)
-  postList.append(createNewCard(item));
+  const card = new Card(item, templateSelector, openImage)
+  postList.append(card.createCard(item));
  });
 
- class FormValidator {
-  constructor(){
-    
-  }
- }
+
+
+const profileFormValidation = new FormValidator(validationConfig, profileFormElement);
+profileFormValidation.enableValidation();
+
+const postFormValidation = new FormValidator(validationConfig, postFormElement);
+postFormValidation.enableValidation();
+
+
 
 // сабмит по enter
 const submitFormEnter = (form) => {
@@ -90,7 +89,8 @@ function handlePostSubmit (evt) {
     link: imgInput.value,
     name: titleInput.value
   }
-	postList.prepend(createNewCard(cardPopupData));
+  const card = new Card(cardPopupData, templateSelector, openImage)
+  postList.prepend(card.createCard(cardPopupData));
   submitFormEnter(popupAddElement);
   closePopup(popupAddElement);
   postFormElement.reset();
@@ -98,17 +98,15 @@ function handlePostSubmit (evt) {
 
 // открыть попап добавления карточки
 const openAddCardForm = () => {
- // toggleButtonState(inputsPost, popupSaveButtonPostElement, validationConfig.inactiveButtonClass);
- // resetValidation(postFormElement);
+  postFormValidation.resetValidation();
   openPopup(popupAddElement);
 }
 
 // открыть попап ред. профиля
 const openEditProfileForm = () => {
-  resetValidation(profileFormElement);
+  profileFormValidation.resetValidation();
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
-  toggleButtonState(inputsProfile, popupSaveButtonElement, validationConfig.inactiveButtonClass);
   openPopup(popupEditElement);
 }
 
@@ -166,4 +164,3 @@ popupAddButtonElement.addEventListener("click", openAddCardForm);
 
 // слушатель событий сабмит попапа добавления карточки
 postFormElement.addEventListener('submit', handlePostSubmit);
-

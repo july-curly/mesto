@@ -73,5 +73,5 @@ const resetValidation = (form) => {
   })
 }
 
-//enableValidation(validationConfig);
+enableValidation(validationConfig);
 

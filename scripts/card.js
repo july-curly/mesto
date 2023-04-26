@@ -7,12 +7,12 @@ export default class Card {
     this._openImage = openImage;
   }
 
-  _handleLike = () => {
-    this._postLikeElement.classList.toggle('post__like_active');
-  }
-
   _handleDelete = () => {
     this._postElement.remove();
+  }
+
+  _handleLike = () => {
+    this._postLikeElement.classList.toggle('post__like_active');
   }
 
   _handleOpenImg = () => {
