@@ -122,7 +122,7 @@ function submitProfileForm (evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   descriptionProfile.textContent = descriptionInput.value;
-  closePopup(popupPostElement);
+  closePopup(popupProfileElement);
 }
 
 // слушатель событий открытия попапа ред. профиля
