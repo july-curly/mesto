@@ -1,6 +1,10 @@
-import initialCards from "./constants.js";
-import Card from "./Сard.js";
-import FormValidator from "./FormValidator.js";
+import initialCards from "./scripts/utils/constants.js";
+import Card from "./scripts/components/Сard.js";
+import FormValidator from "./scripts/components/FormValidator.js";
+import Section from "./scripts/components/Section.js";
+import PopupWithImage from "./scripts/components/PopupWithImage.js";
+import PopupWithForm from "./scripts/components/PopupWithForm.js";
+import UserInfo from "./scripts/components/UserInfo.js";
 
 const popupProfileElement = document.querySelector('.popup-profile');
 const popupPostElement = document.querySelector('.popup-post');
@@ -17,10 +21,13 @@ const titleInput = postFormElement.querySelector('.popup__input_type_title');
 const imgInput = postFormElement.querySelector('.popup__input_type_img');
 const postList =  document.querySelector('.post');
 const templateSelector = document.querySelector('.post-template').content;
-const popupGallery = document.querySelector('.popup-gallery');
-const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
-const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
-const closeButtons = document.querySelectorAll('.popup__close');
+//const popupGallery = document.querySelector('.popup-gallery');
+//const popupImageElement = popupGallery.querySelector('.popup-gallery__img');
+//const popupTitleElement = popupGallery.querySelector('.popup-gallery__title');
+//const closeButtons = document.querySelectorAll('.popup__close');
+
+const popupProfileSelector = '.popup-profile';
+const popupGallerySelector = '.popup-gallery';
 
 const validationConfig = {
   inputSelector: '.popup__input',
@@ -30,19 +37,23 @@ const validationConfig = {
   errorClass: 'popup__error'
 }
 
-// открытие попапа с картинкой
-function openImage (cardData) {
-	popupTitleElement.textContent = cardData.name;
-  popupImageElement.src = cardData.link;
-  popupImageElement.alt = cardData.name;
-  openPopup(popupGallery);
+const popupGallery = new PopupWithImage(popupGallerySelector);
+popupGallery.setEventListeners();
+
+function createNewCard(element) {
+  const card = new Card(element, templateSelector, popupGallery.open);
+  const cardElement = card.createCard();
+  return cardElement
 }
 
-// Добавить карточки из массива
-initialCards.forEach((item) => {
-  const card = new Card(item, templateSelector, openImage)
-  postList.append(card.createCard(item));
- });
+const section = new Section(
+  {items: initialCards,
+  renderer: (item) => {
+    const card = createNewCard(item);
+    return card}},
+  '.post')
+
+section.renderItem();
 
 // экземпляр класса FormValidator для попапа профиля
 const profileFormValidation = new FormValidator(validationConfig, profileFormElement);
@@ -59,8 +70,8 @@ function submitPostForm (evt) {
     link: imgInput.value,
     name: titleInput.value
   }
-  const card = new Card(cardPopupData, templateSelector, openImage)
-  postList.prepend(card.createCard(cardPopupData));
+  const card = createNewCard(cardPopupData);
+  postList.prepend(card);
   closePopup(popupPostElement);
   postFormElement.reset();
 }
@@ -69,7 +80,7 @@ function submitPostForm (evt) {
 const openPostForm = () => {
   postFormElement.reset();
   postFormValidation.resetValidation();
-  openPopup(popupPostElement);
+  //openPopup(popupPostElement);
 }
 
 // открыть попап ред. профиля
@@ -77,45 +88,8 @@ const openProfileForm = () => {
   profileFormValidation.resetValidation();
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
-  openPopup(popupProfileElement);
+  //popupProfile.open();
 }
-
-// функция закрытия попапа по Esc
-const closePopupEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
-
-// функция закрытия попапа по Overlay
-const closePopupOverlay = (evt) => {
-  const target = evt.target;
-  if (!target.closest('.popup__container') && !target.closest('.popup-gallery__container')) {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
-
-// функция открытия попапа
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
-  popup.addEventListener('click', closePopupOverlay);
-}
-
-// функция закрытия попапа
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
-  popup.removeEventListener('click', closePopupOverlay);
-}
-
-// закрытие попапа кнопкой крестик на всех попапах
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
 
 // функция редоктирования профиля
 function submitProfileForm (evt) {
