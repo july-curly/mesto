@@ -3,7 +3,7 @@
   max-height: 75vh;
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 850px) {
   .popup-gallery__img {
   width: 100%;
   object-fit: contain;
