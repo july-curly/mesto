@@ -2,7 +2,7 @@ export default class Card {
   constructor(cardData, templateSelector, openImage) {
     this._cardData = cardData;
     this._link = cardData.link;
-    this._name = cardData.name;
+    this._name = cardData.title;
     this._templateSelector = templateSelector;
     this._openImage = openImage;
   }
@@ -19,7 +19,7 @@ export default class Card {
     this._openImage(this._cardData);
   }
 
-  _setEventListeners (htmlElement) {
+  _setEventListeners() {
     this._postDelElement.addEventListener('click', this._handleDelete);
     this._postLikeElement.addEventListener('click', this._handleLike);
     this._postImgElement.addEventListener('click', this._handleOpenImg);

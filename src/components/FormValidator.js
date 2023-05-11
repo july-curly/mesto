@@ -23,7 +23,7 @@ export default class FormValidator {
   }
 
   _checkInputValidity(input) {
-    const currentInputErrorContainer = this._form.querySelector(`#${input.id}-error`)
+    const currentInputErrorContainer = this._form.querySelector(`.popup__error_type_${input.name}`)
     if (input.validity.valid) {
       this._hideInputError(input, currentInputErrorContainer);
     }
