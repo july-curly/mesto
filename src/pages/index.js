@@ -22,8 +22,7 @@ const popupGallery = new PopupWithImage(popupGallerySelector);
 // Создание карточки
 function createCardElement(element) {
   const card = new Card(element, templateSelector, popupGallery.open);
-  const cardElement = card.createCard();
-  return cardElement
+  return card.createCard();
 }
 
 const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector });
@@ -35,8 +34,8 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 const section = new Section(
   { items: initialCards,
   renderer: (item) => {
-    const card = createCardElement(item);
-    return card }},
+    return createCardElement(item);
+  }},
   '.post')
 
 const popupPost = new PopupWithForm(popupPostSelector, (data) => {
