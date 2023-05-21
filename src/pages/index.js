@@ -11,7 +11,8 @@ import { initialCards,
   profileOpenButton,
   formValidators,
   popupAvatarSelector,
-  popupDeleteSelector } from "../utils/constants.js";
+  popupDeleteSelector,
+  avatarEditButton } from "../utils/constants.js";
 import Card from "../components/Сard.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -22,7 +23,10 @@ import PopupDeleteCard from '../components/PopupDeleteCard.js';
 
 const popupGallery = new PopupWithImage(popupGallerySelector);
 
-const popupDeleteCard = new PopupDeleteCard(popupDeleteSelector)
+const popupDeleteCard = new PopupDeleteCard(popupDeleteSelector, (element) => {
+  element.removeCard();
+  popupDeleteCard.close();
+})
 
 // Создание карточки
 function createCardElement(element) {
@@ -86,7 +90,7 @@ profileOpenButton.addEventListener('click', openProfileForm);
 // слушатель событий открытия попапа добавления карточки
 postOpenButton.addEventListener('click', openPostForm);
 
-document.querySelector('.profile__avatar-edit').addEventListener('click', () => {
+avatarEditButton.addEventListener('click', () => {
   formValidators.avatar.resetValidation();
   popupAvatar.open();
 })

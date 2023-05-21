@@ -9,7 +9,7 @@
   background: black;
   border-radius: 2px;
   padding: 14px 131.5px;
-  max-width: 358px;
+  width: 358px;
   margin: 0 auto 37px;
   cursor: pointer;
 }
@@ -26,5 +26,6 @@
     padding-right: 82px;
     padding-left: 82px;
     margin-bottom: 25px;
+    width: 238px;
   }
 }
