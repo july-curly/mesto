@@ -1,14 +1,15 @@
 export default class Card {
-  constructor(cardData, templateSelector, openImage) {
+  constructor(cardData, templateSelector, openImage, deleteCard) {
     this._cardData = cardData;
     this._link = cardData.link;
     this._name = cardData.title;
     this._templateSelector = templateSelector;
     this._openImage = openImage;
+    this._deleteCard = deleteCard;
   }
 
   _handleDelete = () => {
-    this._postElement.remove();
+    this._deleteCard(this)
   }
 
   _handleLike = () => {
@@ -23,6 +24,10 @@ export default class Card {
     this._postDelElement.addEventListener('click', this._handleDelete);
     this._postLikeElement.addEventListener('click', this._handleLike);
     this._postImgElement.addEventListener('click', this._handleOpenImg);
+  }
+
+  removeCard() {
+    this._postElement.remove();
   }
 
   createCard() {

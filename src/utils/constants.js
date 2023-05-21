@@ -34,6 +34,8 @@ const popupGallerySelector = '.popup-gallery';
 const profileNameSelector = '.profile__name';
 const profileDescriptionSelector = '.profile__description';
 const formValidators = {};
+const popupAvatarSelector = '.popup-avatar';
+const popupDeleteSelector = '.popup-delete-card'
 
 const validationConfig = {
   inputSelector: '.popup__input',
@@ -44,4 +46,4 @@ const validationConfig = {
 }
 
 export { initialCards, validationConfig, profileDescriptionSelector, profileNameSelector, popupGallerySelector, popupPostSelector,
-  popupProfileSelector, templateSelector, postOpenButton, profileOpenButton, formValidators }
+  popupProfileSelector, templateSelector, postOpenButton, profileOpenButton, formValidators, popupAvatarSelector, popupDeleteSelector }
