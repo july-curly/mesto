@@ -1,5 +1,5 @@
 import './index.css';
-import { initialCards,
+import {
   validationConfig,
   profileDescriptionSelector,
   profileNameSelector,
@@ -49,8 +49,10 @@ const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector,
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   api.setInfo(data).then(res => {
     userInfo.setUserInfo({username: res.name, aboutme: res.about, avatar: res.avatar})
-    console.log(res.avatar);
   })
+  .catch((error) => {
+    console.error(error);
+  });
 })
 
 const section = new Section(
@@ -66,7 +68,12 @@ const popupPost = new PopupWithForm(popupPostSelector, (data) => {
 })
 
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
-  document.querySelector('.profile__avatar').src = data.avatar;
+  api.setAvatar(data).then(res => {
+    userInfo.setUserInfo({ username: res.name, aboutme: res.about, avatar: res.avatar })
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 })
 
 popupProfile.setEventListeners();
@@ -88,7 +95,11 @@ Promise.all([api.getInfo(), api.getInitialCards()])
     cards.forEach(item => item.userId = user._id)
     userInfo.setUserInfo({username: user.name, aboutme: user.about, avatar: user.avatar})
     section.renderItem(cards)
+    console.log(user.avatar)
   })
+  .catch((error) => {
+    console.error(error);
+  });
 
 // открыть попап добавления карточки
 const openPostForm = () => {
