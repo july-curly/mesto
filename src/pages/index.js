@@ -12,7 +12,8 @@ import { initialCards,
   formValidators,
   popupAvatarSelector,
   popupDeleteSelector,
-  avatarEditButton } from "../utils/constants.js";
+  avatarEditButton,
+  profileAvatarSelector } from "../utils/constants.js";
 import Card from "../components/Сard.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -20,6 +21,15 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupDeleteCard from '../components/PopupDeleteCard.js';
+import Api from '../components/Api.js';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: '5887a0c5-56a4-4e48-bec1-f3083e2d9c60',
+    'Content-Type': 'application/json'
+  }
+});
 
 const popupGallery = new PopupWithImage(popupGallerySelector);
 
@@ -34,18 +44,19 @@ function createCardElement(element) {
   return card.createCard();
 }
 
-const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector });
+const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector, profileAvatarSelector });
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   userInfo.setUserInfo(data);
 })
 
-const section = new Section(
-  { items: initialCards,
+const section = new Section({
+  items: initialCards,
   renderer: (item) => {
     section.addItem(createCardElement(item));
   }},
-  '.post')
+  '.post'
+)
 
 const popupPost = new PopupWithForm(popupPostSelector, (data) => {
   section.addItem(createCardElement(data));
@@ -55,6 +66,8 @@ const popupPost = new PopupWithForm(popupPostSelector, (data) => {
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   document.querySelector('.profile__avatar').src = data.avatar;
 })
+
+
 
 section.renderItem();
 popupProfile.setEventListeners();
@@ -70,6 +83,13 @@ Array.from(document.forms).forEach((element) => {
   formValidators[formName] = validator;
   validator.enableValidation();
 });
+
+Promise.all([api.getInfo(), api.getInitialCards()])
+  .then(([user, cards]) => {
+    console.log(cards);
+    cards.forEach(item => item.id = user._id)
+    userInfo.setUserInfo({username: user.name, aboutme: user.about, avatar: user.avatar})
+  })
 
 // открыть попап добавления карточки
 const openPostForm = () => {
