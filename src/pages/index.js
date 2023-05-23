@@ -47,7 +47,10 @@ function createCardElement(element) {
 const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector, profileAvatarSelector });
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
-  userInfo.setUserInfo(data);
+  api.setInfo(data).then(res => {
+    userInfo.setUserInfo({username: res.name, aboutme: res.about, avatar: res.avatar})
+    console.log(res.avatar);
+  })
 })
 
 const section = new Section(

@@ -5,22 +5,6 @@ export default class Api {
     this._authorization = options.headers.authorization;
   }
 
-  getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-      headers: {
-        authorization: this._authorization
-      }
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
-  }
-
   getInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: {
@@ -35,5 +19,40 @@ export default class Api {
         Promise.reject;
       }
     });
+    }
+
+    setInfo(data) {
+      return fetch(`${this._url}/users/me`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: data.username,
+          about: data.aboutme
+        })
+      }).then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          Promise.reject;
+        }
+      });
+
+    }
+
+    getInitialCards() {
+      return fetch(`${this._url}/cards`, {
+        headers: {
+          authorization: this._authorization
+        }
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          Promise.reject;
+        }
+      });
     }
   }
