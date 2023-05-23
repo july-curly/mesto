@@ -2,7 +2,9 @@ export default class Card {
   constructor(cardData, templateSelector, openImage, deleteCard) {
     this._cardData = cardData;
     this._link = cardData.link;
-    this._name = cardData.title;
+    this._name = cardData.name;
+    this._userId = cardData.userId;
+    this._ownerId = cardData.owner._id;
     this._templateSelector = templateSelector;
     this._openImage = openImage;
     this._deleteCard = deleteCard;
@@ -39,6 +41,11 @@ export default class Card {
     this._postImgElement.src = this._link;
     this._postImgElement.alt = this._name;
     this._postDescription.textContent = this._name;
+
+    if (this._userId !== this._ownerId) {
+      this._postDelElement.remove();
+    }
+    
     this._setEventListeners(this._postElement);
     return  this._postElement
   }

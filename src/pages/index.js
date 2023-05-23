@@ -50,11 +50,10 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   userInfo.setUserInfo(data);
 })
 
-const section = new Section({
-  items: initialCards,
-  renderer: (item) => {
+const section = new Section(
+    (item) => {
     section.addItem(createCardElement(item));
-  }},
+  },
   '.post'
 )
 
@@ -67,9 +66,6 @@ const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   document.querySelector('.profile__avatar').src = data.avatar;
 })
 
-
-
-section.renderItem();
 popupProfile.setEventListeners();
 popupPost.setEventListeners();
 popupGallery.setEventListeners();
@@ -86,9 +82,9 @@ Array.from(document.forms).forEach((element) => {
 
 Promise.all([api.getInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
-    console.log(cards);
-    cards.forEach(item => item.id = user._id)
+    cards.forEach(item => item.userId = user._id)
     userInfo.setUserInfo({username: user.name, aboutme: user.about, avatar: user.avatar})
+    section.renderItem(cards)
   })
 
 // открыть попап добавления карточки
