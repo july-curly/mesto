@@ -45,7 +45,7 @@ export default class Card {
     if (this._userId !== this._ownerId) {
       this._postDelElement.remove();
     }
-    
+
     this._setEventListeners(this._postElement);
     return  this._postElement
   }

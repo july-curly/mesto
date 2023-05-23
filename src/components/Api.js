@@ -21,54 +21,76 @@ export default class Api {
     });
     }
 
-    setInfo(data) {
-      return fetch(`${this._url}/users/me`, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-          name: data.username,
-          about: data.aboutme
-        })
-      }).then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        else {
-          Promise.reject;
-        }
-      });
-    }
-
-    setAvatar(data) {
-      return fetch(`${this._url}/users/me/avatar `, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-          avatar: data.avatar,
-        })
-      }).then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        else {
-          Promise.reject;
-        }
-      });
-    }
-
-    getInitialCards() {
-      return fetch(`${this._url}/cards`, {
-        headers: {
-          authorization: this._authorization
-        }
+  setInfo(data) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.username,
+        about: data.aboutme
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        else {
-          Promise.reject;
-        }
-      });
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      else {
+        Promise.reject;
+      }
+    });
+  }
+
+  setAvatar(data) {
+    return fetch(`${this._url}/users/me/avatar `, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    }).then(res => {
+    if (res.ok) {
+      return res.json();
     }
+    else {
+      Promise.reject;
+    }
+    });
+  }
+
+  getInitialCards() {
+    return fetch(`${this._url}/cards`, {
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      else {
+        Promise.reject;
+      }
+    });
+  }
+
+  setCard(data) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.title,
+        link: data.link
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      else {
+        Promise.reject;
+      }
+    });
+  }
+
+
   }

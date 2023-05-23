@@ -63,8 +63,15 @@ const section = new Section(
 )
 
 const popupPost = new PopupWithForm(popupPostSelector, (data) => {
-  section.addItem(createCardElement(data));
-  popupPost.close();
+  Promise.all([api.getInfo(), api.setCard(data)])
+    .then(([dataUser, dataCard]) => {
+      dataUser.userId = dataCard._id;
+      section.addItem(createCardElement(dataCard))
+      popupPost.close();
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 })
 
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
@@ -95,7 +102,6 @@ Promise.all([api.getInfo(), api.getInitialCards()])
     cards.forEach(item => item.userId = user._id)
     userInfo.setUserInfo({username: user.name, aboutme: user.about, avatar: user.avatar})
     section.renderItem(cards)
-    console.log(user.avatar)
   })
   .catch((error) => {
     console.error(error);
