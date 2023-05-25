@@ -44,7 +44,7 @@ export default class Card {
 
   _checkLikes() {
     this._likes.forEach(element => {
-      if(element._id === element._userId) {
+      if(element._id === this._userId) {
         this._postLikeElement.classList.add('post__like_active');
         return
       }
