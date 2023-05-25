@@ -1,0 +1,12 @@
+.post__like-sum {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  line-height: 100%;
+  text-align: center;
+  justify-self: center;
+  margin: 0;
+  padding-top: 3px;
+}

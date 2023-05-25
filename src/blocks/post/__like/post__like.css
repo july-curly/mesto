@@ -1,5 +1,4 @@
 .post__like {
-  margin: 30px 20px 30px 0;
   width: 22px;
   height: 19px;
   border: 0;
@@ -7,7 +6,6 @@
   background-repeat: no-repeat;
   background-color: white;
   cursor: pointer;
-  padding: 0;
 }
 
 .post__like:hover {

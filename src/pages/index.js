@@ -40,7 +40,26 @@ const popupDeleteCard = new PopupDeleteCard(popupDeleteSelector, (element) => {
 
 // Создание карточки
 function createCardElement(element) {
-  const card = new Card(element, templateSelector, popupGallery.open, popupDeleteCard.open);
+  const card = new Card(element, templateSelector, popupGallery.open, popupDeleteCard.open, (postLikeElement, cardId) => {
+    if (postLikeElement.classList.contains('post__like_active')){
+      api.deleteLike(cardId)
+      .then(res => {
+        console.log(res)
+        card.toggleLike(res.likes)
+      })
+      .catch((error) => {
+        console.error(`Ошибка удаления лайка ${error}`);
+      });
+    } else{
+      api.addLike(cardId)
+      .then(res => {
+        card.toggleLike(res.likes)
+      })
+      .catch((error) => {
+        console.error(`Ошибка постановки лайка ${error}`);
+      });
+    }
+  });
   return card.createCard();
 }
 

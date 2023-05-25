@@ -1,0 +1,8 @@
+.post__like-container {
+  display: flex;
+  flex-direction: column;
+  height: 35px;
+  width: 22px;
+  padding: 22px 22px 22px 0;
+  margin: 0;
+}

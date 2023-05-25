@@ -92,5 +92,38 @@ export default class Api {
     });
   }
 
-
+  addLike(cardId) {
+    return fetch (`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      else {
+        Promise.reject;
+      }
+    });
   }
+
+  deleteLike(cardId) {
+    return fetch (`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      else {
+        Promise.reject;
+      }
+    });
+  }
+}
+
