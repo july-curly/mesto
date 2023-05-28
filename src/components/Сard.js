@@ -1,6 +1,5 @@
 export default class Card {
   constructor(cardData, templateSelector, openImage, deleteCard, getStatusLike) {
-    console.log(cardData)
     this._cardData = cardData;
     this._link = cardData.link;
     this._name = cardData.name;
@@ -59,6 +58,7 @@ export default class Card {
 
   removeCard() {
     this._postElement.remove();
+    this._postElement = null;
   }
 
   createCard() {

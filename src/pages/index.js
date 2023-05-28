@@ -88,16 +88,18 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 
 const section = new Section(
     (item) => {
-    section.addItem(createCardElement(item));
+    section.addItemPrepend(createCardElement(item));
   },
   '.post'
 )
 
 const popupPost = new PopupWithForm(popupPostSelector, (data) => {
-  Promise.all([api.getInfo(), api.setCard(data)])
-    .then(([dataUser, dataCard]) => {
-      dataUser.userId = dataCard._id;
-      section.addItem(createCardElement(dataCard))
+  //Promise.all([api.getInfo(), api.setCard(data)])
+  api.setCard(data)
+    .then((dataCard) => {
+      console.log(userInfo.getId())
+      dataCard.userId = userInfo.getId();
+      section.addItemAppend(createCardElement(dataCard))
       popupPost.close();
   })
   .catch((error) => {
@@ -145,6 +147,7 @@ Promise.all([api.getInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
     cards.forEach(item => item.userId = user._id)
     userInfo.setUserInfo({username: user.name, aboutme: user.about, avatar: user.avatar})
+    userInfo.setId(user._id)
     section.renderItem(cards)
   })
   .catch((error) => {
