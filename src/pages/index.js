@@ -33,9 +33,18 @@ const api = new Api({
 
 const popupGallery = new PopupWithImage(popupGallerySelector);
 
-const popupDeleteCard = new PopupDeleteCard(popupDeleteSelector, (element) => {
-  element.removeCard();
-  popupDeleteCard.close();
+const popupDeleteCard = new PopupDeleteCard(popupDeleteSelector, ({element, cardId}) => {
+  api.deleteCard(cardId)
+  .then(() =>{
+    element.removeCard();
+    popupDeleteCard.close();
+  })
+  .catch((error) => {
+    console.error(`Ошибка удаления карточки ${error}`);
+  })
+  .finally(() => {
+    popupDeleteCard.submitButton.texContent = 'Да'
+  })
 })
 
 // Создание карточки
@@ -44,7 +53,6 @@ function createCardElement(element) {
     if (postLikeElement.classList.contains('post__like_active')){
       api.deleteLike(cardId)
       .then(res => {
-        console.log(res)
         card.toggleLike(res.likes)
       })
       .catch((error) => {
@@ -67,12 +75,17 @@ const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector,
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   api.setInfo(data).then(res => {
-    userInfo.setUserInfo({username: res.name, aboutme: res.about, avatar: res.avatar})
+    userInfo.setUserInfo({username: res.name, aboutme: res.about, avatar: res.avatar});
+    popupProfile.close();
   })
   .catch((error) => {
-    console.error(error);
-  });
-})
+    console.error(`Ошибка изменения профиля ${error}`);
+  })
+  .finally(() => {
+    popupProfile.submitButton.texContent = 'Сохранить';
+    popupProfile.close();
+  })
+  })
 
 const section = new Section(
     (item) => {
@@ -89,17 +102,24 @@ const popupPost = new PopupWithForm(popupPostSelector, (data) => {
       popupPost.close();
   })
   .catch((error) => {
-    console.error(error);
-  });
+    console.error(`Ошибка добавления карточки ${error}`);
+  })
+  .finally(() => {
+    popupPost.submitButton.texContent = 'Создать'
+  })
 })
 
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   api.setAvatar(data).then(res => {
-    userInfo.setUserInfo({ username: res.name, aboutme: res.about, avatar: res.avatar })
+    userInfo.setUserInfo({ username: res.name, aboutme: res.about, avatar: res.avatar });
+    popupAvatar.close();
   })
   .catch((error) => {
-    console.error(error);
-  });
+    console.error(`Ошибка изменения аватара ${error}`);
+  })
+  .finally(() => {
+    popupAvatar.submitButton.texContent = 'Сохранить'
+  })
 })
 
 popupProfile.setEventListeners();
@@ -123,7 +143,7 @@ Promise.all([api.getInfo(), api.getInitialCards()])
     section.renderItem(cards)
   })
   .catch((error) => {
-    console.error(error);
+    console.error(`Ошибка получения данных профиля ${error}`);
   });
 
 // открыть попап добавления карточки

@@ -125,5 +125,22 @@ export default class Api {
       }
     });
   }
+
+  deleteCard(cardId) {
+    return fetch (`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      else {
+        Promise.reject;
+      }
+    });
+  }
 }
 

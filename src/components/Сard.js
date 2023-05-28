@@ -25,7 +25,7 @@ export default class Card {
   }
 
   _handleDelete = () => {
-    this._deleteCard(this)
+    this._deleteCard({element: this, cardId: this._cardId })
   }
 
   _handleLike = () => {
@@ -63,13 +63,11 @@ export default class Card {
   }
 
   createCard() {
-
-
-    if (this._userId !== this._ownerId) {
+  if (this._userId !== this._ownerId) {
       this._postDelElement.remove();
-    }
-    this._checkLikes();
-    this._setEventListeners();
-    return  this._postElement
+  }
+  this._checkLikes();
+  this._setEventListeners();
+  return  this._postElement
   }
 }
