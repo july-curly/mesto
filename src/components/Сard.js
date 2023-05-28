@@ -30,7 +30,6 @@ export default class Card {
 
   _handleLike = () => {
     this._getStatusLike(this._postLikeElement, this._cardId)
-    //this._postLikeElement.classList.toggle('post__like_active');
   }
 
   toggleLike(likes) {

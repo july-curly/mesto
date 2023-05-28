@@ -6,7 +6,6 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    //console.log(this._avatarElement.src)
     return { username: this._nameElement.textContent, aboutme: this._descriptionElement.textContent }
   }
 

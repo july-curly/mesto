@@ -5,20 +5,22 @@ export default class Api {
     this._authorization = options.headers.authorization;
   }
 
+  _checkRes(res){
+    if (res.ok) {
+        return res.json();
+      }
+    else {
+        Promise.reject;
+    }
+  }
+
   getInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: {
         authorization: this._authorization
       }
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
     }
 
   setInfo(data) {
@@ -30,14 +32,7 @@ export default class Api {
         about: data.aboutme
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
   }
 
   setAvatar(data) {
@@ -47,14 +42,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: data.avatar
       })
-    }).then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    else {
-      Promise.reject;
-    }
-    });
+    }).then(this._checkRes);
   }
 
   getInitialCards() {
@@ -63,14 +51,7 @@ export default class Api {
         authorization: this._authorization
       }
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
   }
 
   setCard(data) {
@@ -82,14 +63,7 @@ export default class Api {
         link: data.link
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
   }
 
   addLike(cardId) {
@@ -99,14 +73,7 @@ export default class Api {
         authorization: this._authorization
       }
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
   }
 
   deleteLike(cardId) {
@@ -116,14 +83,7 @@ export default class Api {
         authorization: this._authorization
       }
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
   }
 
   deleteCard(cardId) {
@@ -133,14 +93,7 @@ export default class Api {
         authorization: this._authorization
       }
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      else {
-        Promise.reject;
-      }
-    });
+    .then(this._checkRes);
   }
 }
 

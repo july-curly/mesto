@@ -43,7 +43,7 @@ const popupDeleteCard = new PopupDeleteCard(popupDeleteSelector, ({element, card
     console.error(`Ошибка удаления карточки ${error}`);
   })
   .finally(() => {
-    popupDeleteCard.submitButton.texContent = 'Да'
+    popupDeleteCard.resetLoadingText();
   })
 })
 
@@ -82,8 +82,7 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
     console.error(`Ошибка изменения профиля ${error}`);
   })
   .finally(() => {
-    popupProfile.submitButton.texContent = 'Сохранить';
-    popupProfile.close();
+    popupProfile.resetLoadingText();
   })
   })
 
@@ -105,7 +104,7 @@ const popupPost = new PopupWithForm(popupPostSelector, (data) => {
     console.error(`Ошибка добавления карточки ${error}`);
   })
   .finally(() => {
-    popupPost.submitButton.texContent = 'Создать'
+    popupPost.resetLoadingText();
   })
 })
 
@@ -118,15 +117,21 @@ const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
     console.error(`Ошибка изменения аватара ${error}`);
   })
   .finally(() => {
-    popupAvatar.submitButton.texContent = 'Сохранить'
+    popupAvatar.resetLoadingText();
   })
 })
 
-popupProfile.setEventListeners();
-popupPost.setEventListeners();
-popupGallery.setEventListeners();
-popupAvatar.setEventListeners();
-popupDeleteCard.setEventListeners();
+// popupProfile.setEventListeners();
+// popupPost.setEventListeners();
+// popupGallery.setEventListeners();
+// popupAvatar.setEventListeners();
+// popupDeleteCard.setEventListeners();
+
+const popups = [popupProfile, popupPost, popupGallery, popupAvatar, popupDeleteCard];
+
+popups.forEach(
+  el => { return el.setEventListeners() }
+);
 
 // Включение валидации
 Array.from(document.forms).forEach((element) => {
